@@ -87,13 +87,23 @@ module.exports = function(RED) {
 
   function IvonaConfigNode(config) {
     RED.nodes.createNode(this,config);
+
+    if (this.credentials) {
+      this.accessKey = this.credentials.accessKey;
+      this.secretKey = this.credentials.secretKey;
+    }
     this.ivona = new Ivona({
-      accessKey: config.accessKey,
-      secretKey: config.secretKey
+      accessKey: this.accessKey,
+      secretKey: this.secretKey
     });
   }
 
-  RED.nodes.registerType('ivona-config', IvonaConfigNode);
+  RED.nodes.registerType('ivona-config', IvonaConfigNode, {
+    credentials: {
+      accessKey: {type: 'text'},
+      secretKey: {type: 'password'}
+    }
+  });
 
   function IvonaNode(config) {
     RED.nodes.createNode(this,config);

@@ -13,7 +13,7 @@
     </div>
     <div class="form-row">
         <label for="node-config-input-secretKey"><i class="fa fa-user"></i> Secret key</label>
-        <input type="text" id="node-config-input-secretKey">
+        <input type="password" id="node-config-input-secretKey">
     </div>
 </script>
 
@@ -21,9 +21,11 @@
     RED.nodes.registerType('ivona-config',{
         category: 'config',
         defaults: {
-            name:      { value:"" },
-            accessKey: { value:"" },
-            secretKey: { value:"" }
+            name: { value:"" }
+        },
+        credentials: {
+            accessKey: {type:'text'},
+            secretKey: {type:'password'}
         },
         label: function() {
             return this.name || "";
