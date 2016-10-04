@@ -108,7 +108,7 @@ module.exports = function(RED) {
   function IvonaNode(config) {
     RED.nodes.createNode(this,config);
     var node = this;
-    this.voice = voices[config.voiceKey];
+    this.voice = voices[config.voice];
     this.dir = config.dir;
     if(!isDirSync(this.dir)) {
       this.error(RED._('The directory "' + this.dir + '" does not exist'));
