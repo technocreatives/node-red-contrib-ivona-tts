@@ -6,6 +6,13 @@ module.exports = function(RED) {
   var fs = require('fs');
   var path = require('path');
 
+  slug.charmap['.'] = '_stop_';
+  slug.charmap['?'] = '_qm_';
+  slug.charmap['!'] = '_em_';
+  slug.charmap[','] = '_pause_';
+  slug.charmap[':'] = '_colon_';
+  slug.charmap[';'] = '_semicolon_';
+
   function isDirSync(aPath) {
     try {
       return fs.statSync(aPath).isDirectory();
