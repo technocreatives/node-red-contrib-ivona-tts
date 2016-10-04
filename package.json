@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ivona-tts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node RED Ivona TTS node",
   "main": "index.js",
   "scripts": {
