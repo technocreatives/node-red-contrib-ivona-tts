@@ -144,20 +144,33 @@ module.exports = function(RED) {
 
           var writeStream = fs.createWriteStream(msg.file);
 
-          node.status({fill: 'yellow', shape: 'dot', text: 'requesting'});
-          msg._ivona.cached = false;
-          var started = Date.now();
-          node.config.ivona.createVoice(msg.payload, {
+          // Store data in case of being unsuccessful.
+          var data = "";
+
+          var stream = node.config.ivona.createVoice(msg.payload, {
             body: { voice: node.voice }
           }).on('error', function(err){
             node.error(RED._(err.message));
             msg.error = err.message;
             node.send([null,msg]);
             node.status({});
-          }).on('end', function(){
+          }).on('data', function(chunk){
+            data += chunk;
+          }).on('end', function(result){
+            if(result.statusCode != 200){
+              // If failed request, remove cache and send negative result.
+              fs.unlinkSync(msg.file);
+              msg.error = data;
+              node.error(RED._(data));
+              node.send([null,msg]);
+              node.status({});
+              return;
+            }
+
             msg._ivona.roundtrip = Date.now() - started;
             node.send([msg, null]);
             node.status({});
+
           }).pipe(writeStream);
 
         } catch (err) {
