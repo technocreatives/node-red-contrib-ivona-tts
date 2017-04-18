@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ivona-tts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node RED Ivona TTS node",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/technocreatives/node-red-contrib-ivona-tts#readme",
   "dependencies": {
-    "ivona-node": "^0.4.0",
+    "ivona-node": "^0.4.1",
     "slug": "^0.9.1"
   }
 }
