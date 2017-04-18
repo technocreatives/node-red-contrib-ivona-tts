@@ -144,6 +144,11 @@ module.exports = function(RED) {
 
           var writeStream = fs.createWriteStream(msg.file);
 
+          node.status({fill: 'yellow', shape: 'dot', text: 'requesting'});
+
+          msg._ivona.cached = false;
+          var started = Date.now();
+
           // Store data in case of being unsuccessful.
           var data = "";
 
